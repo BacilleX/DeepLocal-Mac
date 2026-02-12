@@ -1,0 +1,9 @@
+node_modules
+dist
+release
+extraResources/key_listener
+.DS_Store
+.env
+.idea
+.vscode
+*.log

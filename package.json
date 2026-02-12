@@ -1,0 +1,56 @@
+{
+    "name": "deeplocal-mac",
+    "private": true,
+    "version": "1.0.0",
+    "type": "commonjs",
+    "scripts": {
+        "dev": "concurrently \"vite\" \"wait-on tcp:5173 && electron .\"",
+        "prebuild": "mkdir -p extraResources && swiftc key_listener.swift -o extraResources/key_listener",
+        "build": "npm run prebuild && vite build && electron-builder",
+        "preview": "vite preview"
+    },
+    "main": "electron/main.js",
+    "dependencies": {
+        "lucide-react": "^0.344.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.64",
+        "@types/react-dom": "^18.2.21",
+        "@vitejs/plugin-react": "^4.2.1",
+        "concurrently": "^8.2.2",
+        "cross-env": "^7.0.3",
+        "electron": "^40.4.0",
+        "electron-builder": "^26.7.0",
+        "eslint": "^8.57.0",
+        "eslint-plugin-react": "^7.34.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.5",
+        "vite": "^5.1.5",
+        "wait-on": "^7.2.0"
+    },
+    "build": {
+        "appId": "com.deeplocal.mac",
+        "productName": "DeepLocal",
+        "mac": {
+            "category": "public.app-category.productivity",
+            "hardenedRuntime": true,
+            "entitlements": "build/entitlements.mac.plist",
+            "entitlementsInherit": "build/entitlements.mac.plist"
+        },
+        "extraResources": [
+            {
+                "from": "extraResources/key_listener",
+                "to": "key_listener"
+            }
+        ],
+        "files": [
+            "dist/**/*",
+            "electron/**/*"
+        ],
+        "directories": {
+            "buildResources": "assets"
+        }
+    }
+}
