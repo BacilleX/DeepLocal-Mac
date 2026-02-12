@@ -47,3 +47,6 @@ This will compile the Swift sidecar and package the Electron app into a `.dmg` i
 
 ## License
 MIT
+
+## Credits
+This project was built with **Antigravity** 🚀 and several AI models.
