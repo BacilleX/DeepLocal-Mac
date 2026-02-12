@@ -276,7 +276,7 @@ function App() {
                 )}
 
                 {appVersion && (
-                    <span style={{ color: '#555', fontSize: '11px', margin: '0 8px', opacity: 0.7 }}>v{appVersion}</span>
+                    <span style={{ color: '#999', fontSize: '11px', margin: '0 8px' }}>v{appVersion}</span>
                 )}
                 <div className="shortcuts">
                     <span><span className="kbd">⌘</span>+<span className="kbd">↵</span> Translate</span>
