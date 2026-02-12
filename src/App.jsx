@@ -13,6 +13,8 @@ function App() {
     const [copied, setCopied] = useState(false);
     const [sourceLang, setSourceLang] = useState('French');
     const [targetLang, setTargetLang] = useState('English');
+    const [updateInfo, setUpdateInfo] = useState(null);
+    const [appVersion, setAppVersion] = useState('');
 
     const fetchModels = useCallback(async () => {
         if (!window.electronAPI) {
@@ -102,6 +104,12 @@ function App() {
                 skipDebounceRef.current = true;
                 setSourceText(text);
                 handleTranslate(text);
+            });
+            window.electronAPI.onUpdateAvailable((info) => {
+                setUpdateInfo(info);
+            });
+            window.electronAPI.getVersion().then(ver => {
+                setAppVersion(ver);
             });
         }
     }, [fetchModels, handleTranslate]);
@@ -247,12 +255,35 @@ function App() {
                     <div className={`status-dot ${statusType}`}></div>
                     <span>{status}</span>
                 </div>
+                {updateInfo && (
+                    <a
+                        href={updateInfo.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#4cc9f0', marginLeft: '15px', fontSize: '11px', textDecoration: 'none', cursor: 'pointer' }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if (window.electronAPI && window.electronAPI.shell) {
+                                // We don't have shell exposed in preload, let's open via window.open which Main handles
+                                window.open(updateInfo.url, '_blank');
+                            } else {
+                                window.open(updateInfo.url, '_blank');
+                            }
+                        }}
+                    >
+                        New version available ({updateInfo.version}) - Click here to download
+                    </a>
+                )}
+
+                {appVersion && (
+                    <span style={{ color: '#555', fontSize: '11px', margin: '0 8px', opacity: 0.7 }}>v{appVersion}</span>
+                )}
                 <div className="shortcuts">
                     <span><span className="kbd">⌘</span>+<span className="kbd">↵</span> Translate</span>
                     <span><span className="kbd">⌘</span>+<span className="kbd">C</span>+<span className="kbd">C</span> Quick Translate</span>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

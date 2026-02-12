@@ -233,7 +233,7 @@ app.on('will-quit', () => {
 });
 
 // --- Update Checker ---
-const UPDATE_CHECK_URL = 'https://api.github.com/repos/YOUR_USERNAME/DeepLocal-Mac/releases/latest'; // TODO: Replace with your actual repo
+const UPDATE_CHECK_URL = 'https://api.github.com/repos/BacilleX/DeepLocal-Mac/releases/latest'; // TODO: Replace with your actual repo
 
 function checkForUpdates() {
     const { net, dialog, shell, app } = require('electron');
@@ -255,19 +255,9 @@ function checkForUpdates() {
                     console.log(`[Update] Current: ${currentVersion}, Latest: ${latestVersion}`);
 
                     if (latestVersion !== currentVersion && latestVersion > currentVersion) {
-                        dialog.showMessageBox({
-                            type: 'info',
-                            title: 'Update Available',
-                            message: `A new version (${latestVersion}) is available.`,
-                            detail: 'Would you like to download it now?',
-                            buttons: ['Download', 'Later'],
-                            defaultId: 0,
-                            cancelId: 1
-                        }).then(({ response }) => {
-                            if (response === 0) {
-                                shell.openExternal(release.html_url);
-                            }
-                        });
+                        if (mainWindow) {
+                            mainWindow.webContents.send('update-available', { version: latestVersion, url: release.html_url });
+                        }
                     }
                 } catch (e) {
                     console.error('[Update] Error parsing response:', e);
@@ -297,6 +287,10 @@ ipcMain.handle('app:get-models', async () => {
         console.error('Ollama Error:', error);
         return { models: [], error: error.message };
     }
+});
+
+ipcMain.handle('app:get-version', () => {
+    return app.getVersion();
 });
 
 ipcMain.handle('app:translate', async (event, { model, prompt }) => {

@@ -1,7 +1,8 @@
 {
     "name": "deeplocal-mac",
     "private": true,
-    "version": "1.0.0",
+    "version": "1.0.1",
+    "description": "DeepLocal is a clean, native-feeling menu bar app that brings DeepL-style translation fully offline via Ollama. Built with Electron & Swift.",
     "type": "commonjs",
     "scripts": {
         "dev": "concurrently \"vite\" \"wait-on tcp:5173 && electron .\"",
