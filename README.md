@@ -15,9 +15,9 @@ Based on the original [DeepLocal for Windows](https://github.com/ShinRalexis/Dee
 
 ## Performance & Models
 The speed and accuracy of translations depend entirely on the AI model you select in Ollama.
-*   **Faster**: Smaller models like `gemma:2b`, `phi3`, or `mistral`.
-*   **Better Quality**: Larger models like `llama3`, `gemma2:9b` (recommended).
-*   **Hardware**: Apple Silicon (M1/M2/M3) is highly recommended for best performance.
+*   **Mac M1/M2/M3 (8GB/16GB)**: `gemma2:9b` or `mistral`.
+*   **Mac M4 (Recommended)**: `gemma3:1b` (Lightning fast on M4, instant response).
+*   **Pro/Max/Ultra (32GB+ RAM)**: `llama3.1:70b` (Maximum intelligence).
 
 ## Installation
 
