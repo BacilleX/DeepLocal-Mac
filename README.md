@@ -13,6 +13,12 @@ Based on the original [DeepLocal for Windows](https://github.com/ShinRalexis/Dee
 - **Always Ready**: Automatically launches at login (minimized) so it's always there when you need it.
 - **Privacy First**: No data leaves your computer.
 
+## Performance & Models
+The speed and accuracy of translations depend entirely on the AI model you select in Ollama.
+*   **Faster**: Smaller models like `gemma:2b`, `phi3`, or `mistral`.
+*   **Better Quality**: Larger models like `llama3`, `gemma2:9b` (recommended).
+*   **Hardware**: Apple Silicon (M1/M2/M3) is highly recommended for best performance.
+
 ## Installation
 
 1.  **Install Ollama**: Download from [ollama.com](https://ollama.com).
