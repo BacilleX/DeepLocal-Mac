@@ -57,10 +57,15 @@ function createWindow() {
 }
 
 function createTray() {
-    const iconPath = path.join(__dirname, '../public/tray-icon.png');
+    const iconPath = isDev 
+        ? path.join(__dirname, '../public/tray-iconTemplate.png') 
+        : path.join(__dirname, '../dist/tray-iconTemplate.png');
+        
     const icon = nativeImage.createFromPath(iconPath);
-
-    tray = new Tray(icon.isEmpty() ? nativeImage.createEmpty() : icon);
+    // Resize the icon if it's too large for the menu bar (a common fallback for qlmanage output)
+    const trayIcon = icon.resize({ width: 22, height: 22 });
+    
+    tray = new Tray(trayIcon.isEmpty() ? nativeImage.createEmpty() : trayIcon);
 
     const contextMenu = Menu.buildFromTemplate([
         { label: 'Show DeepLocal', click: () => toggleWindow() },
